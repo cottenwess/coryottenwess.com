@@ -187,6 +187,12 @@ body::before {
 
 .project:nth-child(2n) { border-right: none; }
 
+/* When there are exactly 3 projects, the third one spans the full width */
+.project:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  border-right: none;
+}
+
 .project:hover {
   background: var(--paper-deep);
 }
@@ -228,6 +234,18 @@ body::before {
   padding: 0.25rem 0.6rem;
   border: 1px solid var(--rule);
   text-transform: uppercase;
+}
+
+.project-link {
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.project-link:hover {
+  color: var(--paper);
+  background: var(--ink);
+  border-color: var(--ink);
 }
 
 /* WRITING / ELSEWHERE */
@@ -318,6 +336,88 @@ body::before {
   border-color: var(--accent);
 }
 
+/* BLUESKY FEED */
+.bsky-feed {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.bsky-post {
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: 3rem;
+  align-items: start;
+  transition: padding 0.25s ease;
+}
+
+.bsky-post:hover {
+  padding-left: 1rem;
+}
+
+.bsky-post-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.bsky-post-meta time {
+  display: block;
+}
+
+.bsky-post-body {
+  font-size: 1.1rem;
+  line-height: 1.55;
+}
+
+.bsky-post-text {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin-bottom: 0.75rem;
+}
+
+.bsky-post-text a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+
+.bsky-post-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.bsky-post-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.bsky-state {
+  padding: 2.5rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-align: center;
+  border-bottom: 1px solid var(--rule);
+}
+
+@media (max-width: 800px) {
+  .bsky-post { grid-template-columns: 1fr; gap: 0.75rem; }
+}
+
 /* COLOPHON */
 .colophon {
   padding: 2rem 0 3rem;
@@ -382,7 +482,7 @@ body::before {
       </h1>
       <div class="hero-meta reveal reveal-3">
         <span class="label">A working catalog</span>
-        <p>Writer, teacher in progress, and former graphic artist. This is where the projects live.</p>
+        <p>A former graphic designer in the middle of becoming something else. This is where the in-between work lives.</p>
       </div>
     </div>
   </section>
@@ -396,9 +496,9 @@ body::before {
     <div class="about-body">
       <div class="spacer"></div>
       <div class="about-prose">
-        <p>I live in Chicago. I'm working toward teaching high school biology in the public school system, which means I spend a lot of time at community college, a fair amount thinking about science literacy, and a small but persistent amount drafting a constitution for a republic that doesn't exist.</p>
-        <p>I write science fiction. Sometimes I publish it. More often I rewrite it. I read constantly, I cook with my wife on weeknights, and I am of the strong opinion that <em>No Man's Sky</em> is the greatest video game ever made and that this is not a controversial position.</p>
-        <p>This site is a hub, not a destination. The work is the work.</p>
+        <p>I live in Chicago. I spent a long career in graphic design, and these days I'm headed somewhere different: toward teaching high school biology in the public school system. The road runs through community college, a lot of reading, and a quiet but stubborn interest in how science gets taught.</p>
+        <p>What you'll find here is the in-between. The creative work I make while I'm becoming whatever's next. Some of it is curriculum, some of it is theory, some of it is just thinking out loud. None of it is finished, which is more or less the point.</p>
+        <p>This site is a hub, not a portfolio. Come back occasionally and things will have moved.</p>
       </div>
     </div>
   </section>
@@ -412,24 +512,10 @@ body::before {
     <div class="projects">
 
       <article class="project">
-        <span class="project-kicker">Fiction · novel</span>
-        <h3 class="project-title">The Seventh <span class="italic">Generation</span></h3>
-        <p class="project-desc">A literary SF novel about a Bangladeshi policy researcher leading her nation's delegation at a UN constitutional convention after first contact. Drafted through Book Two.</p>
-        <span class="project-status">In progress</span>
-      </article>
-
-      <article class="project">
-        <span class="project-kicker">Fiction · novel</span>
-        <h3 class="project-title">The Third <span class="italic">World's War</span></h3>
-        <p class="project-desc">Four protagonists building a parallel global financial system in the wake of collapse. Structured after Ministry for the Future. Sparer second draft.</p>
-        <span class="project-status">Drafting</span>
-      </article>
-
-      <article class="project">
-        <span class="project-kicker">Fiction · dark fantasy</span>
-        <h3 class="project-title">The Verdigris <span class="italic">Depths</span></h3>
-        <p class="project-desc">A journal passed between failed adventurers in a living, lordless dungeon beneath a boomtown. Published serially online.</p>
-        <span class="project-status">Ongoing</span>
+        <span class="project-kicker">Teaching · curriculum</span>
+        <h3 class="project-title">The Disinformation <span class="italic">Lab</span></h3>
+        <p class="project-desc">A classroom exercise asking students to distinguish real science from plausibly altered science. Built for a future biology classroom that doesn't exist yet.</p>
+        <span class="project-status">In development</span>
       </article>
 
       <article class="project">
@@ -440,17 +526,10 @@ body::before {
       </article>
 
       <article class="project">
-        <span class="project-kicker">Teaching · curriculum</span>
-        <h3 class="project-title">The Disinformation <span class="italic">Lab</span></h3>
-        <p class="project-desc">A classroom exercise asking students to distinguish real science from plausibly altered science. Built for a future biology classroom that doesn't exist yet.</p>
-        <span class="project-status">In development</span>
-      </article>
-
-      <article class="project">
-        <span class="project-kicker">Comic · graphic novel</span>
-        <h3 class="project-title">Worlds Within, Worlds <span class="italic">Without</span></h3>
-        <p class="project-desc">A semi-autobiographical graphic novel braiding personal memoir with the story of a sentient interstellar probe. 140 pages, targeting publication.</p>
-        <span class="project-status">In development</span>
+        <span class="project-kicker">Writing · serial</span>
+        <h3 class="project-title">The <span class="italic">Substack</span></h3>
+        <p class="project-desc">Notes from the in-between. Essays, observations, and occasional dispatches from a career changing shape.</p>
+        <a href="https://coryottenwess.substack.com/" target="_blank" rel="noopener" class="project-status project-link">Read &rarr;</a>
       </article>
 
     </div>
@@ -464,14 +543,9 @@ body::before {
     </div>
     <ul class="elsewhere-list">
       <li>
-        <span class="where">WordPress</span>
-        <span class="what">The Verdigris Depths</span>
-        <a href="https://verdigrisdepths.wordpress.com/" target="_blank" rel="noopener">Read &rarr;</a>
-      </li>
-      <li>
-        <span class="where">Bookshelf</span>
-        <span class="what">411 books and counting</span>
-        <a href="#" target="_blank" rel="noopener">Coming &rarr;</a>
+        <span class="where">Substack</span>
+        <span class="what">Notes from the in-between</span>
+        <a href="https://coryottenwess.substack.com/" target="_blank" rel="noopener">Read &rarr;</a>
       </li>
       <li>
         <span class="where">Essays</span>
@@ -479,6 +553,17 @@ body::before {
         <a href="#" target="_blank" rel="noopener">Coming &rarr;</a>
       </li>
     </ul>
+  </section>
+
+  <!-- BLUESKY FEED -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">§ 04</span>
+      <h2 class="section-title">Recently on <span class="italic">Bluesky</span></h2>
+    </div>
+    <div id="bsky-feed" class="bsky-feed">
+      <div class="bsky-state">Loading recent posts&hellip;</div>
+    </div>
   </section>
 
   <!-- CONTACT -->
@@ -495,6 +580,103 @@ body::before {
   </footer>
 
 </div>
+
+<script>
+(function () {
+  // ---- CONFIG ----
+  // Your Bluesky handle.
+  const HANDLE = 'coryottenwess.com';
+  const POSTS_TO_SHOW = 5;
+  // ----------------
+
+  const container = document.getElementById('bsky-feed');
+  if (!container) return;
+
+  // Fetch a few extra to account for filtered-out reposts/replies
+  const url = 'https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed'
+    + '?actor=' + encodeURIComponent(HANDLE)
+    + '&filter=posts_no_replies'
+    + '&limit=' + (POSTS_TO_SHOW + 5);
+
+  function formatDate(iso) {
+    try {
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric'
+      });
+    } catch (e) { return ''; }
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // Linkify URLs in plain post text. Bluesky stores rich-text "facets" too,
+  // but plain regex covers the 95% case cleanly and keeps the code small.
+  function linkify(text) {
+    const escaped = escapeHtml(text);
+    return escaped.replace(
+      /(https?:\/\/[^\s<]+)/g,
+      '<a href="$1" target="_blank" rel="noopener">$1</a>'
+    );
+  }
+
+  function postUrl(handle, uri) {
+    // at://did/app.bsky.feed.post/rkey  ->  bsky.app/profile/handle/post/rkey
+    const rkey = uri.split('/').pop();
+    return 'https://bsky.app/profile/' + handle + '/post/' + rkey;
+  }
+
+  function render(posts) {
+    if (!posts.length) {
+      container.innerHTML = '<div class="bsky-state">No recent posts.</div>';
+      return;
+    }
+    container.innerHTML = posts.map(function (item) {
+      const p = item.post;
+      const text = (p.record && p.record.text) ? p.record.text : '';
+      const when = (p.record && p.record.createdAt) ? p.record.createdAt : p.indexedAt;
+      return ''
+        + '<article class="bsky-post">'
+        +   '<div class="bsky-post-meta"><time datetime="' + escapeHtml(when) + '">'
+        +     escapeHtml(formatDate(when))
+        +   '</time></div>'
+        +   '<div class="bsky-post-body">'
+        +     '<div class="bsky-post-text">' + linkify(text) + '</div>'
+        +     '<a class="bsky-post-link" href="' + escapeHtml(postUrl(HANDLE, p.uri))
+        +       '" target="_blank" rel="noopener">View on Bluesky &rarr;</a>'
+        +   '</div>'
+        + '</article>';
+    }).join('');
+  }
+
+  fetch(url)
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function (data) {
+      const feed = (data && data.feed) ? data.feed : [];
+      // Filter out reposts (items that have a "reason"), keep only own posts
+      const own = feed.filter(function (item) { return !item.reason; });
+      render(own.slice(0, POSTS_TO_SHOW));
+    })
+    .catch(function () {
+      container.innerHTML =
+        '<div class="bsky-state">'
+        + 'Couldn\'t load the feed right now. '
+        + '<a href="https://bsky.app/profile/' + HANDLE + '" target="_blank" rel="noopener" '
+        + 'style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">'
+        + 'Find me on Bluesky &rarr;</a>'
+        + '</div>';
+    });
+})();
+</script>
 
 </body>
 </html>
