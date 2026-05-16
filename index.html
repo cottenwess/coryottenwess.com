@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cory Ottenwess</title>
+<meta name="description" content="Writer, teacher, and designer based in Chicago.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #1a1714;
+  --paper: #f4f0e8;
+  --paper-deep: #e8e2d4;
+  --accent: #a8341f;
+  --muted: #6b6258;
+  --rule: #c9c0ae;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Fraunces', Georgia, serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.6;
+  font-feature-settings: "kern", "liga", "calt";
+  overflow-x: hidden;
+}
+
+/* Subtle paper grain */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* MASTHEAD */
+.masthead {
+  border-bottom: 2px solid var(--ink);
+  padding: 1.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.masthead .left { color: var(--muted); }
+.masthead .right { color: var(--muted); }
+
+/* HERO */
+.hero {
+  padding: 6rem 0 5rem;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+}
+
+.hero h1 {
+  font-size: clamp(4rem, 12vw, 11rem);
+  line-height: 0.88;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  font-variation-settings: "opsz" 144;
+}
+
+.hero h1 .italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.hero-meta {
+  padding-bottom: 1rem;
+}
+
+.hero-meta p {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 28ch;
+}
+
+.hero-meta .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* SECTION HEADERS */
+.section {
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.section-head {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  align-items: baseline;
+}
+
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.section-title .italic {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ABOUT */
+.about-body {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 3rem;
+}
+
+.about-body .spacer { }
+
+.about-prose p {
+  font-size: 1.2rem;
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+  max-width: 62ch;
+}
+
+.about-prose p:last-child { margin-bottom: 0; }
+
+/* PROJECTS GRID */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.project {
+  padding: 2.5rem 2rem;
+  border-bottom: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.project:nth-child(2n) { border-right: none; }
+
+.project:hover {
+  background: var(--paper-deep);
+}
+
+.project-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.project-title {
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.project-title .italic { font-style: italic; }
+
+.project-desc {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.55;
+  max-width: 45ch;
+}
+
+.project-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--rule);
+  text-transform: uppercase;
+}
+
+/* WRITING / ELSEWHERE */
+.elsewhere {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 3rem;
+}
+
+.elsewhere-list {
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.elsewhere-list li {
+  border-bottom: 1px solid var(--rule);
+  padding: 1.25rem 0;
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  gap: 2rem;
+  align-items: baseline;
+  transition: padding 0.25s ease;
+}
+
+.elsewhere-list li:hover {
+  padding-left: 1rem;
+}
+
+.elsewhere-list .where {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.elsewhere-list .what {
+  font-size: 1.15rem;
+  font-style: italic;
+}
+
+.elsewhere-list a {
+  color: var(--ink);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.elsewhere-list a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* CONTACT */
+.contact {
+  padding: 6rem 0;
+  text-align: center;
+}
+
+.contact-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.contact a {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 0.25rem;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.contact a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* COLOPHON */
+.colophon {
+  padding: 2rem 0 3rem;
+  border-top: 2px solid var(--ink);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* REVEAL ANIMATION */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: rise 1s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+
+.reveal-1 { animation-delay: 0.1s; }
+.reveal-2 { animation-delay: 0.25s; }
+.reveal-3 { animation-delay: 0.4s; }
+.reveal-4 { animation-delay: 0.55s; }
+
+@keyframes rise {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  .container { padding: 0 1.5rem; }
+  .hero { padding: 3rem 0; }
+  .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .section { padding: 3rem 0; }
+  .section-head, .about-body, .elsewhere { grid-template-columns: 1fr; gap: 1.5rem; }
+  .projects { grid-template-columns: 1fr; }
+  .project { border-right: none; padding: 2rem 1.5rem; }
+  .elsewhere-list li { grid-template-columns: 1fr; gap: 0.5rem; }
+  .masthead { font-size: 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <header class="masthead reveal reveal-1">
+    <span class="left">Cory Ottenwess</span>
+    <span class="right">Chicago, IL &mdash; Est. nowish</span>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <h1 class="reveal reveal-2">
+        Cory<br>
+        <span class="italic">Ottenwess</span>
+      </h1>
+      <div class="hero-meta reveal reveal-3">
+        <span class="label">A working catalog</span>
+        <p>Writer, teacher in progress, and former graphic artist. This is where the projects live.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">§ 01</span>
+      <h2 class="section-title">A short <span class="italic">introduction</span></h2>
+    </div>
+    <div class="about-body">
+      <div class="spacer"></div>
+      <div class="about-prose">
+        <p>I live in Chicago. I'm working toward teaching high school biology in the public school system, which means I spend a lot of time at community college, a fair amount thinking about science literacy, and a small but persistent amount drafting a constitution for a republic that doesn't exist.</p>
+        <p>I write science fiction. Sometimes I publish it. More often I rewrite it. I read constantly, I cook with my wife on weeknights, and I am of the strong opinion that <em>No Man's Sky</em> is the greatest video game ever made and that this is not a controversial position.</p>
+        <p>This site is a hub, not a destination. The work is the work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">§ 02</span>
+      <h2 class="section-title">Things I'm <span class="italic">making</span></h2>
+    </div>
+    <div class="projects">
+
+      <article class="project">
+        <span class="project-kicker">Fiction · novel</span>
+        <h3 class="project-title">The Seventh <span class="italic">Generation</span></h3>
+        <p class="project-desc">A literary SF novel about a Bangladeshi policy researcher leading her nation's delegation at a UN constitutional convention after first contact. Drafted through Book Two.</p>
+        <span class="project-status">In progress</span>
+      </article>
+
+      <article class="project">
+        <span class="project-kicker">Fiction · novel</span>
+        <h3 class="project-title">The Third <span class="italic">World's War</span></h3>
+        <p class="project-desc">Four protagonists building a parallel global financial system in the wake of collapse. Structured after Ministry for the Future. Sparer second draft.</p>
+        <span class="project-status">Drafting</span>
+      </article>
+
+      <article class="project">
+        <span class="project-kicker">Fiction · dark fantasy</span>
+        <h3 class="project-title">The Verdigris <span class="italic">Depths</span></h3>
+        <p class="project-desc">A journal passed between failed adventurers in a living, lordless dungeon beneath a boomtown. Published serially online.</p>
+        <span class="project-status">Ongoing</span>
+      </article>
+
+      <article class="project">
+        <span class="project-kicker">Theory · long form</span>
+        <h3 class="project-title">A <span class="italic">Republic</span>, Argued</h3>
+        <p class="project-desc">A constitution for a theoretical republic, drafted in 21 articles. An accompanying essay series adapts each article for a wider audience.</p>
+        <span class="project-status">21 articles</span>
+      </article>
+
+      <article class="project">
+        <span class="project-kicker">Teaching · curriculum</span>
+        <h3 class="project-title">The Disinformation <span class="italic">Lab</span></h3>
+        <p class="project-desc">A classroom exercise asking students to distinguish real science from plausibly altered science. Built for a future biology classroom that doesn't exist yet.</p>
+        <span class="project-status">In development</span>
+      </article>
+
+      <article class="project">
+        <span class="project-kicker">Comic · graphic novel</span>
+        <h3 class="project-title">Worlds Within, Worlds <span class="italic">Without</span></h3>
+        <p class="project-desc">A semi-autobiographical graphic novel braiding personal memoir with the story of a sentient interstellar probe. 140 pages, targeting publication.</p>
+        <span class="project-status">In development</span>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ELSEWHERE -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">§ 03</span>
+      <h2 class="section-title">Found <span class="italic">elsewhere</span></h2>
+    </div>
+    <ul class="elsewhere-list">
+      <li>
+        <span class="where">WordPress</span>
+        <span class="what">The Verdigris Depths</span>
+        <a href="https://verdigrisdepths.wordpress.com/" target="_blank" rel="noopener">Read &rarr;</a>
+      </li>
+      <li>
+        <span class="where">Bookshelf</span>
+        <span class="what">411 books and counting</span>
+        <a href="#" target="_blank" rel="noopener">Coming &rarr;</a>
+      </li>
+      <li>
+        <span class="where">Essays</span>
+        <span class="what">The Republic, Argued</span>
+        <a href="#" target="_blank" rel="noopener">Coming &rarr;</a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact">
+    <div class="contact-label">Get in touch</div>
+    <a href="mailto:hello@coryottenwess.com">hello@coryottenwess.com</a>
+  </section>
+
+  <!-- COLOPHON -->
+  <footer class="colophon">
+    <span>© 2026 Cory Ottenwess</span>
+    <span>Set in Fraunces &amp; JetBrains Mono</span>
+    <span>Built by hand</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
