@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notes from an Acceleration Native — Cory A. Ottenwess</title>
+<meta name="description" content="A book and an open protocol about the architecture of the creative economy under AI — and what we build before the enclosure completes.">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Notes from an Acceleration Native">
+<meta property="og:description" content="The conflict between generative AI and the creative economy is a framing problem. The frame is architectural. A book, and an open protocol.">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://coryottenwess.com/notes/">
+<!-- TODO: set og:image once you have a cover/social card (recommend 1200x630) -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #0a0a0b;
+    --ink-soft: #141416;
+    --paper: #f4f1ea;
+    --paper-dim: #c9c5ba;
+    --red: #d22f27;
+    --red-bright: #ff3b30;
+    --rule: rgba(244,241,234,0.14);
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* subtle grain/scanline atmosphere */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image: repeating-linear-gradient(
+      0deg, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px,
+      transparent 1px, transparent 3px);
+    opacity: 0.25;
+    mix-blend-mode: multiply;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 2; }
+
+  a { color: inherit; }
+
+  .mono { font-family: var(--mono); }
+
+  /* ---------- top bar ---------- */
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 0; font-family: var(--mono); font-size: 12px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper-dim);
+    border-bottom: 1px solid var(--rule);
+  }
+  .topbar .brand { color: var(--paper); font-weight: 700; }
+  .topbar nav a { margin-left: 22px; text-decoration: none; transition: color .2s; }
+  .topbar nav a:hover { color: var(--red-bright); }
+  @media (max-width: 640px){ .topbar nav { display:none; } }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 88px 0 64px; border-bottom: 1px solid var(--rule); position: relative; }
+  .hero .kicker {
+    font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--red); margin-bottom: 28px;
+    opacity: 0; animation: rise .7s ease forwards .1s;
+  }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 500; font-size: clamp(2.6rem, 6vw, 5.2rem);
+    line-height: 1.02; letter-spacing: -0.02em; margin-bottom: 10px;
+    opacity: 0; animation: rise .7s ease forwards .22s;
+  }
+  .hero h1 em { font-style: italic; color: var(--paper); }
+  .hero .sub {
+    font-family: var(--mono); font-size: clamp(.8rem,1.6vw,1rem); color: var(--paper-dim);
+    letter-spacing: 0.02em; margin: 22px 0 38px; max-width: 50ch; line-height: 1.55;
+    opacity: 0; animation: rise .7s ease forwards .34s;
+  }
+  .hero .lede {
+    font-size: clamp(1.15rem,2.4vw,1.5rem); max-width: 30ch; line-height: 1.4;
+    color: var(--paper); margin-bottom: 40px;
+    opacity: 0; animation: rise .7s ease forwards .34s;
+  }
+  .hero .lede strong { color: var(--red-bright); font-weight: 500; }
+
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: rise .7s ease forwards .46s; }
+  .btn {
+    font-family: var(--mono); font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase;
+    text-decoration: none; padding: 15px 26px; border: 1px solid var(--paper);
+    display: inline-flex; align-items: center; gap: 10px; transition: all .18s ease;
+  }
+  .btn-primary { background: var(--red); border-color: var(--red); color: #fff; }
+  .btn-primary:hover { background: var(--red-bright); border-color: var(--red-bright); transform: translateY(-2px); }
+  .btn-ghost { background: transparent; color: var(--paper); }
+  .btn-ghost:hover { background: var(--paper); color: var(--ink); transform: translateY(-2px); }
+
+  @keyframes rise { from { opacity:0; transform: translateY(16px);} to {opacity:1; transform:none;} }
+
+  /* decorative oversized index numerals */
+  .section-num {
+    font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em;
+    color: var(--red); text-transform: uppercase; margin-bottom: 22px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-num::after { content:""; height:1px; flex:1; background: var(--rule); }
+
+  section { padding: 76px 0; border-bottom: 1px solid var(--rule); }
+  h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.8rem,4vw,3rem);
+       line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 26px; max-width: 22ch; }
+  h2 em { font-style: italic; color: var(--red-bright); }
+  .prose p { max-width: 62ch; margin-bottom: 20px; color: #e8e4da; }
+  .prose p.big { font-size: 1.25rem; color: var(--paper); max-width: 56ch; }
+
+  /* ---------- the framing flip ---------- */
+  .flip { display:grid; grid-template-columns: 1fr 1fr; gap: 0; border:1px solid var(--rule); margin-top: 40px; }
+  @media (max-width:760px){ .flip{ grid-template-columns:1fr; } }
+  .flip > div { padding: 34px; }
+  .flip .wrong { border-right:1px solid var(--rule); }
+  @media (max-width:760px){ .flip .wrong{ border-right:none; border-bottom:1px solid var(--rule);} }
+  .flip .label { font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:14px; }
+  .flip .wrong .label { color: var(--paper-dim); }
+  .flip .right .label { color: var(--red-bright); }
+  .flip h3 { font-family:var(--serif); font-weight:500; font-size:1.5rem; line-height:1.2; }
+  .flip .wrong h3 { color: var(--paper-dim); text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+
+  /* ---------- framework cards ---------- */
+  .cards { display:grid; grid-template-columns: repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); margin-top:40px; }
+  @media (max-width:760px){ .cards{ grid-template-columns:1fr; } }
+  .card { background: var(--ink); padding: 30px; transition: background .2s; }
+  .card:hover { background: var(--ink-soft); }
+  .card .n { font-family:var(--mono); font-size:12px; color:var(--red); letter-spacing:0.1em; }
+  .card h3 { font-family:var(--serif); font-weight:500; font-size:1.35rem; margin:14px 0 10px; line-height:1.15; }
+  .card p { font-size:.95rem; color:#d8d4ca; line-height:1.5; }
+
+  /* ---------- protocol / dev block ---------- */
+  #protocol { background: var(--ink-soft); }
+  .terminal {
+    font-family: var(--mono); background:#070708; border:1px solid var(--rule);
+    margin-top:36px; font-size: clamp(.72rem,1.4vw,.86rem); line-height:1.7; overflow:hidden;
+  }
+  .terminal .bar { display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--rule); }
+  .terminal .dot { width:11px; height:11px; border-radius:50%; background:#2a2a2d; }
+  .terminal .dot.r{ background:var(--red); }
+  .terminal .title { margin-left:10px; color:var(--paper-dim); font-size:11px; letter-spacing:0.08em; }
+  .terminal pre { padding:20px 18px; overflow-x:auto; color:#cfccc4; white-space:pre; }
+  .terminal .c { color:#6f6c64; }
+  .terminal .g { color:#4fae54; }
+  .terminal .red { color:var(--red-bright); }
+  .terminal .w { color:var(--paper); }
+
+  .layer-list { margin-top: 34px; border-top:1px solid var(--rule); }
+  .layer { display:grid; grid-template-columns: 160px 1fr; gap:20px; padding:22px 0; border-bottom:1px solid var(--rule); align-items:baseline; }
+  @media (max-width:640px){ .layer{ grid-template-columns:1fr; gap:6px; } }
+  .layer .lname { font-family:var(--mono); font-size:13px; letter-spacing:0.06em; color:var(--red-bright); text-transform:uppercase; }
+  .layer .ldesc { color:#d8d4ca; font-size:1rem; }
+  .layer .ldesc b { color:var(--paper); font-weight:500; }
+
+  /* ---------- email capture ---------- */
+  #signup { background: var(--red); color:#fff; border-bottom:none; }
+  #signup h2 { color:#fff; max-width: 20ch; }
+  #signup h2 em { color: #1a1a1a; font-style: italic; }
+  #signup .prose p { color: rgba(255,255,255,0.92); }
+  .form {
+    margin-top: 30px; display:flex; gap:12px; max-width: 540px; flex-wrap:wrap;
+  }
+  .form input[type=email]{
+    flex:1; min-width:240px; font-family:var(--mono); font-size:15px; padding:16px 18px;
+    border:1px solid rgba(255,255,255,0.5); background:rgba(0,0,0,0.18); color:#fff; outline:none;
+  }
+  .form input[type=email]::placeholder{ color:rgba(255,255,255,0.6); }
+  .form input[type=email]:focus{ border-color:#fff; background:rgba(0,0,0,0.3); }
+  .form button{
+    font-family:var(--mono); font-size:13px; letter-spacing:0.05em; text-transform:uppercase;
+    padding:16px 28px; border:1px solid #fff; background:#fff; color:var(--red);
+    cursor:pointer; transition: all .18s; font-weight:700;
+  }
+  .form button:hover{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  .form-note{ font-family:var(--mono); font-size:11px; color:rgba(255,255,255,0.75); margin-top:16px; letter-spacing:0.03em; }
+
+  /* ---------- author ---------- */
+  .author-grid{ display:grid; grid-template-columns: 1fr 1.4fr; gap:48px; align-items:start; }
+  @media (max-width:760px){ .author-grid{ grid-template-columns:1fr; gap:24px;} }
+  .author-tag{ font-family:var(--mono); font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--red); }
+
+  /* ---------- footer ---------- */
+  footer{ padding:48px 0 60px; font-family:var(--mono); font-size:12px; color:var(--paper-dim); letter-spacing:0.04em; }
+  footer .frow{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:18px; }
+  footer a{ text-decoration:none; transition:color .2s; }
+  footer a:hover{ color:var(--red-bright); }
+  .disclosure{ margin-top:28px; max-width:64ch; line-height:1.7; color:#7c786f; font-size:11.5px; }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .hero .kicker,.hero h1,.hero .sub,.hero .lede,.cta-row{ animation:none; opacity:1; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="topbar">
+    <a class="brand" href="https://coryottenwess.com" style="text-decoration:none;">OTTENWESS</a>
+    <nav>
+      <a href="#book">The Book</a>
+      <a href="#framework">Framework</a>
+      <a href="#protocol">Protocol</a>
+      <a href="#signup">Get Notified</a>
+      <a href="https://coryottenwess.com" style="color:var(--red);">← coryottenwess.com</a>
+    </nav>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">A book · An open protocol · 2026</div>
+    <h1>Notes from an<br><em>Acceleration Native</em></h1>
+    <div class="sub">On What It Was, What It Is, and What We Build Before They Finish Rewriting It</div>
+    <p class="lede">The fight between AI and the creative economy is framed wrong. The right frame isn't adversarial. It's <strong>architectural</strong>.</p>
+    <div class="cta-row">
+      <a href="#signup" class="btn btn-primary">Get launch updates →</a>
+      <a href="#protocol" class="btn btn-ghost">Read the protocol</a>
+    </div>
+  </div>
+</header>
+
+<!-- THE BOOK / THE ARGUMENT -->
+<section id="book">
+  <div class="wrap reveal">
+    <div class="section-num">§ 01 — The Argument</div>
+    <h2>Every prior technology transition ended the same way. This one <em>doesn't have to.</em></h2>
+    <div class="prose">
+      <p class="big">Open infrastructure gets built. It reaches scale. Then it gets enclosed — quietly, by the interests that can afford to. The web did it. Search did it. Social did it. Generative AI is doing it now, in real time.</p>
+      <p>The book traces that pattern from the inside — from a kid growing up on the acceleration curve, through the boom and the crash and the platforms that replaced the dream, to the moment we're in now. It's part memoir, part technological history, and part something more useful: a set of questions worth asking while the architecture is still soft enough to shape.</p>
+      <p>It doesn't claim to solve anything. It claims the window is still open, and that what gets built inside it decides the outcome.</p>
+    </div>
+
+    <div class="flip">
+      <div class="wrong">
+        <div class="label">The frame everyone uses</div>
+        <h3>Artists versus the machine.</h3>
+      </div>
+      <div class="right">
+        <div class="label">The frame that changes the outcome</div>
+        <h3>Infrastructure, built before the enclosure completes.</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK -->
+<section id="framework">
+  <div class="wrap reveal">
+    <div class="section-num">§ 02 — The Sovereign Creative Economy</div>
+    <h2>A three-part framework. The order is not optional.</h2>
+    <div class="prose">
+      <p>The proposal isn't three ideas you can pick from. It's a sequence of dependencies. Forward consent requires the vault. The vault requires governance. Governance requires inclusion. Remove any one and you don't get a weaker version — you get the extraction model again, arrived at by a more palatable route.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="n">01</div>
+        <h3>Forward Consent Architecture</h3>
+        <p>Creative worlds registered as proof-of-world artifacts, with a compute-time royalty model. Attribution built in before training, not litigated after.</p>
+      </div>
+      <div class="card">
+        <div class="n">02</div>
+        <h3>Personal Data Sovereignty</h3>
+        <p>A user-owned data vault and an AI companion that acts as a gatekeeper — one that can't be bribed, because the incentive to sell you out was never built in.</p>
+      </div>
+      <div class="card">
+        <div class="n">03</div>
+        <h3>Governance by Acceleration Natives</h3>
+        <p>The people who adapted through every paradigm shift have a transferable governance skill. Competency inclusion, not authority — the patient-advocate model for technology.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROTOCOL -->
+<section id="protocol">
+  <div class="wrap reveal">
+    <div class="section-num">§ 03 — The GhostBox Protocol</div>
+    <h2>The second pillar isn't just an idea. It's <em>running code.</em></h2>
+    <div class="prose">
+      <p class="big">An open specification and reference implementation for communication and access control where the intermediary can't extract your data — not because it promises not to, but because the architecture never gives it the ability.</p>
+      <p>Zero-identity messaging over a dead-drop that can't link sender to recipient. A permissions layer that mediates your data without ever holding it. Released under the AGPL, with cross-language conformance enforced on every commit — because a project arguing that trust should be verifiable shouldn't ask you to take its word for anything.</p>
+    </div>
+
+    <div class="terminal">
+      <div class="bar">
+        <span class="dot r"></span><span class="dot"></span><span class="dot"></span>
+        <span class="title">spirit-layer · identity derivation</span>
+      </div>
+<pre><span class="c"># Identity is derived, never registered. Nothing for a platform to seize.</span>
+<span class="g">$</span> <span class="w">node derive.mjs</span>
+locator  <span class="red">e44de3c0 3ea7df5e f9cfbdf4 6d0a9a9a</span>   <span class="c">// public — deposit only</span>
+signing  <span class="red">5881f850 …</span>                            <span class="c">// challenge-response</span>
+access   <span class="c">[ PRIVATE — exists only in RAM, never sent ]</span>
+
+<span class="c"># Reorder the same secret factors → a completely different identity.</span>
+<span class="c"># Order is part of the secret. The server learns none of it.</span></pre>
+    </div>
+
+    <div class="layer-list">
+      <div class="layer">
+        <div class="lname">Spirit</div>
+        <div class="ldesc"><b>Identity.</b> Invisible. Derived from secrets you hold, in memory only. No account, no registration, nothing to revoke or sell.</div>
+      </div>
+      <div class="layer">
+        <div class="lname">Specter</div>
+        <div class="ldesc"><b>Transport.</b> A passive dead-drop. The server stores opaque blobs and is structurally unable to link who sent what to whom.</div>
+      </div>
+      <div class="layer">
+        <div class="lname">Corporeal</div>
+        <div class="ldesc"><b>Discovery.</b> Voluntary presence and a five-state relationship model that mirrors how human connection actually works — not a connected/not-connected binary.</div>
+      </div>
+    </div>
+
+    <div class="cta-row" style="margin-top:40px;">
+      <a href="https://github.com/cottenwess/sovereign-comms" class="btn btn-primary">View the repo on GitHub →</a>
+      <a href="#signup" class="btn btn-ghost">Follow the build</a>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNUP -->
+<section id="signup">
+  <div class="wrap reveal">
+    <div class="section-num" style="color:#1a1a1a;">§ 04 — Get Notified</div>
+    <h2>The book lands in 2026. The protocol is <em>live now.</em></h2>
+    <div class="prose">
+      <p>One list. Launch news for the book, meaningful releases on the protocol, and the occasional note from inside the writing. No noise, no selling your address — that would rather defeat the point.</p>
+    </div>
+
+    <!--
+      EMAIL SETUP (Buttondown — recommended):
+      1. Create a free account at https://buttondown.com
+      2. Replace cottenwess below with your Buttondown username.
+      That's it — this posts directly, no JavaScript needed.
+
+      Prefer no provider yet? Delete the <form> and uncomment the mailto button beneath it.
+    -->
+    <form class="form"
+          action="https://buttondown.com/api/emails/embed-subscribe/cottenwess"
+          method="post" target="popupwindow"
+          onsubmit="window.open('https://buttondown.com/cottenwess', 'popupwindow')">
+      <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+      <button type="submit">Notify me</button>
+    </form>
+
+    <!-- No-provider fallback: uncomment this and delete the form above
+    <div class="cta-row">
+      <a class="btn btn-ghost" style="border-color:#fff;color:#fff;"
+         href="mailto:YOUR_EMAIL@example.com?subject=Notify%20me%20about%20the%20launch">
+         Email me to get on the list →</a>
+    </div>
+    -->
+
+    <p class="form-note">Privacy-respecting email, fittingly. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- AUTHOR -->
+<section id="author">
+  <div class="wrap reveal">
+    <div class="author-grid">
+      <div>
+        <div class="author-tag">The Author</div>
+        <h2 style="margin-top:18px;">Cory A.<br>Ottenwess</h2>
+      </div>
+      <div class="prose" style="padding-top:6px;">
+        <p class="big">No formal credentials in law, academia, or policy. The authority here is experiential: decades of iterative technological literacy, a designer's eye for systems, and the specific vantage point of someone who grew up inside the acceleration curve.</p>
+        <p>The same pattern recognition that built this framework is, not coincidentally, tied to a late autism diagnosis — a way of seeing structure that the book treats as an asset, plainly and without apology. The argument doesn't rest on authority anyway. It rests on whether the questions are the right ones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <span>© 2026 Cory A. Ottenwess · <a href="https://coryottenwess.com">coryottenwess.com</a></span>
+      <span>
+        <a href="#book">Book</a> &nbsp;·&nbsp;
+        <a href="#protocol">Protocol</a> &nbsp;·&nbsp;
+        <a href="https://github.com/cottenwess/sovereign-comms">GitHub</a> &nbsp;·&nbsp;
+        <a href="#signup">Get Notified</a>
+      </span>
+    </div>
+    <p class="disclosure">
+      This book was written with the assistance of an AI system serving in a ghost-editing role. The framework, argument, voice, and every substantive decision are the author's — an application of the book's own attribution principles, disclosed rather than hidden.
+    </p>
+  </div>
+</footer>
+
+<script>
+  // scroll reveal — progressive, respects reduced-motion via CSS
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
