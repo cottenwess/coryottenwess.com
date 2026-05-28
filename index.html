@@ -18,6 +18,7 @@
   --accent: #1f7a3a;
   --muted: #6b6258;
   --rule: #c9c0ae;
+  --book-red: #d22f27;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -246,6 +247,123 @@ body::before {
   color: var(--paper);
   background: var(--ink);
   border-color: var(--ink);
+}
+
+/* FEATURE BLOCK — the book + protocol.
+   Uses the homepage's own palette; a single red left-border and red accents
+   preview where the link leads without importing the microsite's dark theme. */
+.feature {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  border-left: 3px solid var(--book-red);
+  background: var(--paper-deep);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 0;
+}
+
+.feature-main {
+  padding: 3rem 2.5rem;
+  border-right: 1px solid var(--rule);
+}
+
+.feature-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--book-red);
+  margin-bottom: 1.25rem;
+  display: block;
+}
+
+.feature-title {
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.feature-title .italic {
+  font-style: italic;
+  color: var(--book-red);
+}
+
+.feature-prose p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  max-width: 52ch;
+  margin-bottom: 1rem;
+}
+
+.feature-prose p:last-of-type { margin-bottom: 1.75rem; }
+
+.feature-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.feature-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.feature-btn.primary {
+  background: var(--book-red);
+  border-color: var(--book-red);
+  color: var(--paper);
+}
+
+.feature-btn.primary:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.feature-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.feature-side {
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.feature-fact .n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.feature-fact .v {
+  font-size: 1.05rem;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.feature-fact .v .red { color: var(--book-red); font-style: normal; }
+
+@media (max-width: 800px) {
+  .feature { grid-template-columns: 1fr; }
+  .feature-main { border-right: none; border-bottom: 1px solid var(--rule); padding: 2rem 1.5rem; }
+  .feature-side { padding: 2rem 1.5rem; }
 }
 
 /* WRITING / ELSEWHERE */
@@ -503,10 +621,46 @@ body::before {
     </div>
   </section>
 
-  <!-- PROJECTS -->
+  <!-- FEATURED: BOOK + PROTOCOL -->
   <section class="section">
     <div class="section-head">
       <span class="section-num">§ 02</span>
+      <h2 class="section-title">The thing I'm <span class="italic">building toward</span></h2>
+    </div>
+    <div class="feature">
+      <div class="feature-main">
+        <span class="feature-kicker">A book · An open protocol</span>
+        <h3 class="feature-title">Notes from an <span class="italic">Acceleration Native</span></h3>
+        <div class="feature-prose">
+          <p>The longest-running of these experiments, and the one that pulls the rest together. A book arguing that the fight between AI and the creative economy is framed wrong — that the right frame isn't adversarial but architectural, and that what gets built before the enclosure completes decides the outcome.</p>
+          <p>It comes with running code: an open, AGPL-licensed protocol for communication and data ownership where the intermediary can't extract from you, because the architecture never gives it the means. The same question I ask of any platform, answered in a specification instead of an essay.</p>
+        </div>
+        <div class="feature-actions">
+          <a class="feature-btn primary" href="/notes/">Read more &rarr;</a>
+          <a class="feature-btn" href="https://github.com/cottenwess/sovereign-comms" target="_blank" rel="noopener">The protocol on GitHub</a>
+        </div>
+      </div>
+      <div class="feature-side">
+        <div class="feature-fact">
+          <span class="n">The book</span>
+          <span class="v">Trade nonfiction, landing <span class="red">2026</span></span>
+        </div>
+        <div class="feature-fact">
+          <span class="n">The protocol</span>
+          <span class="v">Open source, <span class="red">live now</span></span>
+        </div>
+        <div class="feature-fact">
+          <span class="n">The frame</span>
+          <span class="v">Not adversarial. <span class="red">Architectural.</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">§ 03</span>
       <h2 class="section-title">Things I'm <span class="italic">experimenting on</span></h2>
     </div>
     <div class="projects">
@@ -538,7 +692,7 @@ body::before {
   <!-- ELSEWHERE -->
   <section class="section">
     <div class="section-head">
-      <span class="section-num">§ 03</span>
+      <span class="section-num">§ 04</span>
       <h2 class="section-title">Found <span class="italic">elsewhere</span></h2>
     </div>
     <ul class="elsewhere-list">
@@ -558,7 +712,7 @@ body::before {
   <!-- ON BEING ELSEWHERE -->
   <section class="section">
     <div class="section-head">
-      <span class="section-num">§ 04</span>
+      <span class="section-num">§ 05</span>
       <h2 class="section-title">On being <span class="italic">elsewhere</span></h2>
     </div>
     <div class="about-body">
@@ -574,7 +728,7 @@ body::before {
   <!-- BLUESKY FEED -->
   <section class="section">
     <div class="section-head">
-      <span class="section-num">§ 05</span>
+      <span class="section-num">§ 06</span>
       <h2 class="section-title">Recently on <span class="italic">Bluesky</span></h2>
     </div>
     <div id="bsky-feed" class="bsky-feed">
