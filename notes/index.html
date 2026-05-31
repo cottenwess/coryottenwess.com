@@ -177,6 +177,20 @@
   .layer .ldesc { color:#d8d4ca; font-size:1rem; }
   .layer .ldesc b { color:var(--paper); font-weight:500; }
 
+  /* ---------- doc links ---------- */
+  .doc-links { margin-top: 40px; padding-top: 34px; border-top: 1px solid var(--rule); }
+  .doc-links-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--paper-dim); margin-bottom: 18px; }
+  .doc-links-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  @media (max-width: 640px) { .doc-links-row { grid-template-columns: 1fr; } }
+  .doc-link {
+    display: flex; align-items: flex-start; gap: 16px; padding: 22px 24px;
+    background: var(--ink); text-decoration: none; transition: background .18s;
+  }
+  .doc-link:hover { background: var(--ink-soft); }
+  .doc-icon { font-family: var(--mono); font-size: 16px; color: var(--red-bright); flex-shrink: 0; line-height: 1.4; }
+  .doc-title { display: block; font-family: var(--serif); font-weight: 500; font-size: 1.05rem; color: var(--paper); margin-bottom: 4px; }
+  .doc-desc { display: block; font-family: var(--mono); font-size: 0.75rem; color: var(--paper-dim); line-height: 1.5; letter-spacing: 0.01em; }
+
   /* ---------- email capture ---------- */
   #signup { background: var(--red); color:#fff; border-bottom:none; }
   #signup h2 { color:#fff; max-width: 20ch; }
@@ -339,6 +353,26 @@ access   <span class="c">[ PRIVATE — exists only in RAM, never sent ]</span>
       <div class="layer">
         <div class="lname">Corporeal</div>
         <div class="ldesc"><b>Discovery.</b> Voluntary presence and a five-state relationship model that mirrors how human connection actually works — not a connected/not-connected binary.</div>
+      </div>
+    </div>
+
+    <div class="doc-links">
+      <div class="doc-links-label">Read the specification</div>
+      <div class="doc-links-row">
+        <a href="https://github.com/cottenwess/sovereign-comms/blob/main/GhostBox-WhitePaper-v0.1.0.pdf" class="doc-link" target="_blank" rel="noopener">
+          <span class="doc-icon">↗</span>
+          <span>
+            <span class="doc-title">White Paper</span>
+            <span class="doc-desc">Architecture, rationale, and design principles — start here</span>
+          </span>
+        </a>
+        <a href="https://github.com/cottenwess/sovereign-comms/blob/main/GhostBox-Technical-Reference-v0.1.0.pdf" class="doc-link" target="_blank" rel="noopener">
+          <span class="doc-icon">↗</span>
+          <span>
+            <span class="doc-title">Technical Reference</span>
+            <span class="doc-desc">Full specification — key derivation, wire format, conformance vectors</span>
+          </span>
+        </a>
       </div>
     </div>
 
