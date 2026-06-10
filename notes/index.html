@@ -12,10 +12,7 @@
 <meta property="og:description" content="The conflict between generative AI and the creative economy is a framing problem. The frame is architectural. A book, and an open protocol.">
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://coryottenwess.com/notes/">
-<meta property="og:image" content="https://coryottenwess.com/notes/og-card.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
+<!-- TODO: set og:image once you have a cover/social card (recommend 1200x630) -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -177,19 +174,13 @@
   .layer .ldesc { color:#d8d4ca; font-size:1rem; }
   .layer .ldesc b { color:var(--paper); font-weight:500; }
 
-  /* ---------- doc links ---------- */
-  .doc-links { margin-top: 40px; padding-top: 34px; border-top: 1px solid var(--rule); }
-  .doc-links-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--paper-dim); margin-bottom: 18px; }
-  .doc-links-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
-  @media (max-width: 640px) { .doc-links-row { grid-template-columns: 1fr; } }
-  .doc-link {
-    display: flex; align-items: flex-start; gap: 16px; padding: 22px 24px;
-    background: var(--ink); text-decoration: none; transition: background .18s;
-  }
-  .doc-link:hover { background: var(--ink-soft); }
-  .doc-icon { font-family: var(--mono); font-size: 16px; color: var(--red-bright); flex-shrink: 0; line-height: 1.4; }
-  .doc-title { display: block; font-family: var(--serif); font-weight: 500; font-size: 1.05rem; color: var(--paper); margin-bottom: 4px; }
-  .doc-desc { display: block; font-family: var(--mono); font-size: 0.75rem; color: var(--paper-dim); line-height: 1.5; letter-spacing: 0.01em; }
+  /* ---------- demo callout ---------- */
+  .demo-callout { margin-top:36px; border:1px solid var(--red); background:rgba(210,47,39,0.06);
+    display:grid; grid-template-columns:1fr auto; gap:28px; align-items:center; padding:26px 28px; }
+  @media (max-width:680px){ .demo-callout{ grid-template-columns:1fr; gap:18px; } }
+  .demo-callout-label { font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--red-bright); margin-bottom:10px; }
+  .demo-callout-text p { color:#e8e4da; font-size:1rem; line-height:1.5; max-width:54ch; }
+  .demo-callout-btn { white-space:nowrap; }
 
   /* ---------- email capture ---------- */
   #signup { background: var(--red); color:#fff; border-bottom:none; }
@@ -324,6 +315,7 @@
     <div class="prose">
       <p class="big">An open specification and reference implementation for communication and access control where the intermediary can't extract your data — not because it promises not to, but because the architecture never gives it the ability.</p>
       <p>Zero-identity messaging over a dead-drop that can't link sender to recipient. A permissions layer that mediates your data without ever holding it. Released under the AGPL, with cross-language conformance enforced on every commit — because a project arguing that trust should be verifiable shouldn't ask you to take its word for anything.</p>
+      <p>The dead-drop now runs in code, and there's a bridge that lets a Bluesky identity carry a private GhostBox address — the encrypted, unlinkable messaging the AT Protocol doesn't have. You don't have to take the unlinkability on faith: there's a demo you can watch in your browser, below.</p>
     </div>
 
     <div class="terminal">
@@ -356,28 +348,17 @@ access   <span class="c">[ PRIVATE — exists only in RAM, never sent ]</span>
       </div>
     </div>
 
-    <div class="doc-links">
-      <div class="doc-links-label">Read the specification</div>
-      <div class="doc-links-row">
-        <a href="https://github.com/cottenwess/sovereign-comms/blob/main/GhostBox-WhitePaper-v0.1.0.pdf" class="doc-link" target="_blank" rel="noopener">
-          <span class="doc-icon">↗</span>
-          <span>
-            <span class="doc-title">White Paper</span>
-            <span class="doc-desc">Architecture, rationale, and design principles — start here</span>
-          </span>
-        </a>
-        <a href="https://github.com/cottenwess/sovereign-comms/blob/main/GhostBox-Technical-Reference-v0.1.0.pdf" class="doc-link" target="_blank" rel="noopener">
-          <span class="doc-icon">↗</span>
-          <span>
-            <span class="doc-title">Technical Reference</span>
-            <span class="doc-desc">Full specification — key derivation, wire format, conformance vectors</span>
-          </span>
-        </a>
+    <div class="demo-callout">
+      <div class="demo-callout-text">
+        <div class="demo-callout-label">Live in your browser</div>
+        <p>Generate two identities, send messages between them, and watch the server's complete state. The messages are there. The record of who sent what to whom never is. Real cryptography, no mockups.</p>
       </div>
+      <a href="https://coryottenwess.com/notes/demo/ghostbox-demo.html" class="btn btn-primary demo-callout-btn">Watch the dead-drop run →</a>
     </div>
 
     <div class="cta-row" style="margin-top:40px;">
       <a href="https://github.com/cottenwess/sovereign-comms" class="btn btn-primary">View the repo on GitHub →</a>
+      <a href="https://coryottenwess.com/notes/demo/ghostbox-demo.html" class="btn btn-ghost">Try the live demo</a>
       <a href="#signup" class="btn btn-ghost">Follow the build</a>
     </div>
   </div>
